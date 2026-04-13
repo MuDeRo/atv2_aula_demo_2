@@ -77,7 +77,7 @@ export class Telefone {
 
 
     #validarId(value) {
-        if (value <= 0) {
+        if (value && value <= 0 ) {
             throw new Error("O ID deve ser um número positivo.");
         }
     };

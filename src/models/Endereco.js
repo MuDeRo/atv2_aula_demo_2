@@ -6,14 +6,16 @@ export class Endereco {
     #complemento;
     #municipio;
     #uf;
+    #numero;
 
-    constructor(pIdCliente, pCep, pLogradouro, pComplemento, pMunicipio, pUf, pId) {
+    constructor(pIdCliente, pCep, pLogradouro, pComplemento, pMunicipio, pUf, pNumero, pId) {
         this.idCliente = pIdCliente;
         this.cep = pCep;
         this.logradouro = pLogradouro;
         this.complemento = pComplemento;
         this.municipio = pMunicipio;
         this.uf = pUf;
+        this.numero = pNumero;
         this.id = pId;
     }
 
@@ -43,14 +45,6 @@ export class Endereco {
         this.#logradouro = value;
     };
 
-    get complemento() {
-        return this.#complemento;
-    };
-
-    set complemento(value) {
-        this.#validarComplemento(value);
-        this.#complemento = value;
-    };
 
     get municipio() {
         return this.#municipio;
@@ -68,6 +62,15 @@ export class Endereco {
     set uf(value) {
         this.#validarUf(value);
         this.#uf = value;
+    };
+
+    get numero() {
+        return this.#numero;
+    };
+
+    set numero(value) {
+        this.#validarNumero(value);
+        this.#numero = value;
     };
 
     get id() {
@@ -99,12 +102,6 @@ export class Endereco {
         }
     };
 
-    #validarComplemento(value) {
-        if (!value) {
-            throw new Error("Complemento é obrigatório.");
-        }
-    };
-
     #validarMunicipio(value) {
         if (!value) {
             throw new Error("Município é obrigatório.");
@@ -112,38 +109,33 @@ export class Endereco {
     };
 
     #validarUf(value) {
-        if (!value || value.length !== 2) {
-            throw new Error("UF é obrigatório e deve conter 2 caracteres!");
+        if (!value ) {
+            throw new Error("UF é obrigatório!");
         }
     };
 
     #validarId(value) {
-        if (value <= 0) {
+        if (value && value <= 0) {
             throw new Error("O ID deve ser um número positivo.");
+        }
+    };
+
+    #validarNumero(value) {
+        if (value <= 0) {
+            throw new Error("O número deve ser um número positivo.");
         }
     };
 
     static criar(dados) {
         return new Endereco(
-            dados.idCliente,
-            dados.cep,
-            dados.logradouro,
-            dados.complemento,
-            dados.municipio,
-            dados.uf, 
-            null
+            dados.idCliente, dados.cep, dados.logradouro, dados.complemento, dados.municipio, dados.uf, dados.numero, null
         );
     };
 
+
     static editar(dados, id) {
         return new Endereco(
-            dados.idCliente,
-            dados.cep,
-            dados.logradouro,
-            dados.complemento,
-            dados.municipio,
-            dados.uf, 
-            id
+            dados.idCliente, dados.cep,dados.logradouro, dados.complemento, dados.municipio, dados.uf, dados.numero, id
         );
     };
 
