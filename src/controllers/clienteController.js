@@ -112,6 +112,24 @@ const clienteController = {
             console.log(error);
             res.status(500).json({ message: 'Erro no server', error: error.message });
         }
+    },
+
+    deletar: async (req, res) => {
+        try {
+
+            const id = Number(req.params.id);
+
+            if(id <0 ){
+                return res.status(400).json({ message: 'ID inválido' });
+            }
+
+            const resultado = await clienteRepository.deletar(id);
+            return res.status(200).json({ message: 'Cliente deletado com sucesso', resultado });
+
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: 'Erro no server', error: error.message });
+        }
     }
 }
 

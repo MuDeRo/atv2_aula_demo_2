@@ -74,22 +74,22 @@ const clienteRepository = {
     },
 
     deletar: async (id) => {
-        const conn = await db.getConnection();
+        const conn = await connection.getConnection();
 
         try {
             await conn.beginTransaction();
 
             const sqlEndereco = 'DELETE FROM enderecos WHERE id_cliente=?;';
             const valuesEndereco = [id];
-            const [rowsEndereco] = await db.execute(sqlEndereco, valuesEndereco);
+            const [rowsEndereco] = await connection.execute(sqlEndereco, valuesEndereco);
 
             const sqlTelefone = 'DELETE FROM telefones WHERE id_cliente=?;';
             const valuesTelefone = [id];
-            const [rowsTelefone] = await db.execute(sqlTelefone, valuesTelefone);
+            const [rowsTelefone] = await connection.execute(sqlTelefone, valuesTelefone);
 
             const sqlCliente = 'DELETE FROM clientes WHERE id=?;';
             const valuesCliente = [id];
-            const [rowsCliente] = await db.execute(sqlCliente, valuesCliente);
+            const [rowsCliente] = await connection.execute(sqlCliente, valuesCliente);
 
             await conn.commit();
 
