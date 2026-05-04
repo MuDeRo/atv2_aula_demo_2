@@ -12,7 +12,7 @@ const clienteController = {
 
             let { nome, cpf, cep, telefone, numero } = req.body;
 
-            // console.log(cpf)
+            
             cpf = limparNumeros(cpf);
             validarCpf(cpf);
             cep = limparNumeros(cep);
